@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 
 void main()
 {
@@ -22,8 +23,8 @@ void main()
 			case 1:
 			{
 				printf("Enter the number to be inserted ");
-				scanf("%d",&in)
-				if(head=NULL)
+				scanf("%d",&in);
+				if(head==NULL)
 				{
 					head=(struct node *)malloc(sizeof(struct node));
 					head->data=in;
@@ -33,9 +34,10 @@ void main()
 			
 				else
 				{
-					tail->next=(struct node *)malloc(sizeof(stuct node));
+					tail->next=(struct node *)malloc(sizeof(struct node));
 					tail=tail->next;
 					tail->data=in;
+					tail->next=NULL;
 				}
 				break;
 			}
@@ -55,22 +57,71 @@ void main()
 			
 			case 3:
 			{
-				int x,max;
+				int x,max,count=0;
+				struct node *temp=head;
 				printf("\nEnter element to be deleted :");
 				scanf("%d",&x);
 				
-				pos=head;
-				while(pos!=NULL)
+				while(temp!=NULL)
 				{
-					if(pos->data==x)
+					if(temp->data==x)
 					{
-						max=pos->data;
-						pos-data=0;
-						break;
+						if(count==0)
+						{
+							max=temp->data;
+							head=head->next;
+							temp->next=NULL;
+							free(temp);
+							break;
+						}
+						
+						else
+						{
+							struct node *del=temp->next;
+							temp->next=temp->next->next;
+							del->next=NULL;
+							free(del);
+						}
 					}
 					else
 					{
-						pos=pos->next;
+						temp=temp->next;
 						count++;
 					}
 				}
+				
+				while(pos!=NULL)
+				{
+					if(pos->data>max)
+					{
+						max=pos->data;
+					}
+				}
+				
+				while(pos!=NULL)
+				{
+					if(pos->data>x)
+					{
+						if(pos->data<max)
+						{
+							max=pos->data;
+						}
+					}
+				}
+				printf("The returned element is %d",max);
+				break;
+			}
+			
+			case 5:
+			{
+				printf("\nExiting");
+				exit(0);
+			}
+			
+			default:
+			{
+				printf("Wrong Option!!!");
+			}
+		}
+	}
+}
