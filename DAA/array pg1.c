@@ -1,9 +1,19 @@
 #include<stdio.h>
-# define n 5
+#include<stdlib.h>
+#include <time.h>
+# define n 1000000
 
 void main()
 {
-	int S[n]={1,4,10,2,7},x,min,max;
+	clock_t start_t, end_t;
+	double total_t;
+	
+	int S[n],x,min,max,pos;
+	
+	for(int i=0;i<n;i++)
+	{
+		S[i]=rand()%10000;
+	}
 	
 	printf("\nThe Elements in the array are :");
 	
@@ -15,19 +25,32 @@ void main()
 	printf("\nEnter element to be deleted :");
 	scanf("%d",&x);
 	
+	
+	
+	start_t = clock();
 	for(int i=0;i<n;i++)
 	{
 		if(S[i]==x)
 		{
 			max=S[i];
-			S[i]=0;
-			break;
+			pos=i;
+
 		}
+		
 	}
+	for(int j=pos;j<n-1;j++)
+	{
+		S[j]=S[j+1];
+	}
+	end_t = clock();
+	total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+	printf("\nTotal time taken by CPU for DELETION: %f\n\n", total_t );
+
 	
 	
 	
 	
+	start_t = clock();
 	for(int i=0;i<n;i++)
 	{
 		if(S[i]>max)
@@ -35,8 +58,6 @@ void main()
 			max=S[i];
 		}
 	}
-	
-	
 	
 	min=max;	
 	for(int i=0;i<n;i++)
@@ -50,13 +71,8 @@ void main()
 		}
 	}
 	
-	
+	end_t = clock();
+	total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+	printf("\nTotal time taken by CPU for LARGER ELEMENT: %f\n\n", total_t );
 	printf("The returned element is %d",min);
-	
-	printf("\nThe Elements in the array are :");
-	
-	for(int i=0;i<n;i++)
-	{
-		printf("%d ",S[i]);
-	}
 }
