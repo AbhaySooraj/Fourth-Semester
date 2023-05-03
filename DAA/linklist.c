@@ -1,127 +1,135 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
+#define n 1000000
+
+
 
 void main()
 {
+	clock_t start_t, end_t;
+	double total_t;
+	
 	struct node
 	{
 		int data;
 		struct node *next;
 	};
 	
-	struct node *head=NULL,*pos=NULL,*tail=NULL;
+	struct node *head=NULL,*pos=NULL,*tail=NULL,*temp=NULL;
 	
 	int ch,in;
 	
-	while(1)
-	{
-		printf("\n 1:Insert \n 2:Display \n 3:Delete \n 4:Exit ");
-		printf("\n Enter your choice :");
-		scanf("%d",&ch);
-		switch(ch)
-		{		
-			case 1:
-			{
-				printf("Enter the number to be inserted ");
-				scanf("%d",&in);
-				if(head==NULL)
-				{
-					head=(struct node *)malloc(sizeof(struct node));
-					head->data=in;
-					head->next=NULL;
-					tail=head;
-				}
+	for(int i=0;i<n;i++)
+	{	
+		if(head==NULL)
+		{
+			head=(struct node *)malloc(sizeof(struct node));
+			head->data=rand()%10000;
+			tail=head;
+		}
 			
-				else
-				{
-					tail->next=(struct node *)malloc(sizeof(struct node));
-					tail=tail->next;
-					tail->data=in;
-					tail->next=NULL;
-				}
-				break;
-			}
-			
-			case 2:
-			{
-				
-				pos=head;
-				printf("\n Elements are :");
-				while(pos!=NULL)
-				{
-					printf("%d\t",pos->data);
-					pos=pos->next;
-				}
-				break;
-			}
-			
-			case 3:
-			{
-				int x,max,count=0;
-				struct node *temp=head;
-				printf("\nEnter element to be deleted :");
-				scanf("%d",&x);
-				
-				while(temp!=NULL)
-				{
-					if(temp->data==x)
-					{
-						if(count==0)
-						{
-							max=temp->data;
-							head=head->next;
-							temp->next=NULL;
-							free(temp);
-							break;
-						}
-						
-						else
-						{
-							struct node *del=temp->next;
-							temp->next=temp->next->next;
-							del->next=NULL;
-							free(del);
-						}
-					}
-					else
-					{
-						temp=temp->next;
-						count++;
-					}
-				}
-				
-				while(pos!=NULL)
-				{
-					if(pos->data>max)
-					{
-						max=pos->data;
-					}
-				}
-				
-				while(pos!=NULL)
-				{
-					if(pos->data>x)
-					{
-						if(pos->data<max)
-						{
-							max=pos->data;
-						}
-					}
-				}
-				printf("The returned element is %d",max);
-				break;
-			}
-			
-			case 5:
-			{
-				printf("\nExiting");
-				exit(0);
-			}
-			
-			default:
-			{
-				printf("Wrong Option!!!");
-			}
+		else
+		{
+			tail->next=(struct node *)malloc(sizeof(struct node));
+			tail=tail->next;
+			tail->data=rand()%10000;
 		}
 	}
+			
+				
+	pos=head;
+	printf("\n Elements are :");
+	while(pos!=NULL)
+	{
+		printf("%d\t",pos->data);
+		pos=pos->next;
+	}
+
+				
+	int x,max,count=0;
+	temp=head;
+	printf("\nEnter element to be deleted :");
+	scanf("%d",&x);
+		
+	while(temp!=NULL)
+	{
+		if(temp->data==x)
+		{
+			max=x;
+			break;
+		}
+		else
+		{
+			count++;
+			temp=temp->next;
+		}
+	}
+	
+	
+	start_t = clock();
+	temp=head;
+	if(count==0)
+	{
+		head=head->next;
+		temp->next=NULL;
+		free(temp);
+	}
+	else
+	{
+		for(int i=0;i<count-1;i++)
+		{
+			temp=temp->next;
+		}
+		struct node *del=temp->next;
+		temp->next=temp->next->next;
+		del->next=NULL;
+		free(del);
+	}
+	end_t = clock();
+	total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+	printf("\nTotal time taken by CPU for DELETION: %f\n\n", total_t );
+	
+	
+	start_t = clock();			
+	pos=head;
+	while(pos!=NULL)
+	{
+		if(pos->data>max)
+		{
+			max=pos->data;
+			pos=pos->next;
+		}
+		else
+		{
+			pos=pos->next;
+		}
+		
+	}
+	
+	pos=head;
+	while(pos!=NULL)
+	{
+		if(pos->data>x)
+		{
+			if(pos->data<max)
+			{
+				max=pos->data;
+				pos=pos->next;
+			}
+			else
+			{
+				pos=pos->next;
+			}
+		}
+		else
+		{
+			pos=pos->next;
+		}
+	}
+	end_t = clock();
+	total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+	printf("\nTotal time taken by CPU for LARGER ELEMENT: %f\n\n", total_t );
+	printf("The returned element is %d\n",max);		
 }
+
