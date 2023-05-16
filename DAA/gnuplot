@@ -1,0 +1,6 @@
+set title "Execution Time vs. Data Size"
+set xlabel "Data Size (log scale)"
+set ylabel "Execution Time (log scale)"
+set logscale x
+set logscale y
+plot "sort.dat" using 1:2 smooth csplines title "Bubble Sort", "sort.dat" using 1:3 smooth csplines title "Quick Sort"
