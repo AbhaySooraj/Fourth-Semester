@@ -86,6 +86,7 @@ void main()
 	
 	u=weight;
 	int i;
+	float profit=0;
 	for( i=0;i<n;i++)
 	{
 		if(w[i]>u)
@@ -94,17 +95,16 @@ void main()
 		}
 		x[i]=1;
 		u=u-w[i];
+		profit=profit+p[i];
 	}
 	if(i<=n)
 	{
 		x[i]=u/w[i];
+		profit=profit+(u/w[i])*p[i];
 	}
 	
 	sort(e,pw,p,w,x,n,1);
 	printf(" The solution tuple is \t");
-
-	display(n,x);	
+	display(n,x);
+	printf("\n The profit is %f",profit);	
 }
-
-
-
