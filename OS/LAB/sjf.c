@@ -63,11 +63,11 @@ void main(){
 	printf("\nEnter number of processes:");
 	scanf("%d",&n);
 	for(int i=0;i<n;i++){
-		printf("Enter the proces ID of process %d:",i+1);
+		printf("Enter the process ID :");
 		scanf("%d",&p[i].pid);
-		printf("Enter AT:");
+		printf("Enter Arrival Time:");
 		scanf("%d",&p[i].at);
-		printf("Enter BT:");
+		printf("Enter Burst Time:");
 		scanf("%d",&p[i].bt);
 		printf("\n");
 	}
@@ -90,16 +90,17 @@ void main(){
 	
 	
 	printf("SJF:\n");
-	printf("Process id\t Arrival time\t\t  Burst time\t\tCompletion time\t\tTurn around time\tWaiting time\n");
+	printf("PID\tAT\tBT\tCT\tTAT\tWT\t\n");
 	for(int i=0;i<n;i++){
 		twt+=p[i].wt;
 		ttat+=p[i].tat;
-		printf("%d\t\t\t",p[i].pid);
-		printf("%d\t\t\t",p[i].at);
-		printf("%d\t\t\t",p[i].bt);
-		printf("%d\t\t\t",p[i].ct);
-		printf("%d\t\t\t",p[i].tat);
-		printf("%d\t\t\t",p[i].wt);
+		printf("%d\t",p[i].pid);
+		printf("%d\t",p[i].at);
+		printf("%d\t",p[i].bt);
+		printf("%d\t",p[i].ct);
+		printf("%d\t",p[i].tat);
+		printf("%d\t",p[i].wt);
+		printf("\n");
 		printf("\n");
 	}
 	avwt=twt/n;
