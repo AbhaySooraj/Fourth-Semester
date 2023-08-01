@@ -1,110 +1,89 @@
 #include<stdio.h>
-#include<stdlib.h>
 
-void display(int x,float arr[])
+struct item
 {
-	for(int i=0;i<x;i++)
+	int id;
+	float p;
+	float w;
+	float pw;
+	float a;
+};
+
+void main()
+{
+	int n,max;
+	printf(" Enter the number of items :");
+	scanf("%d",&n);
+	struct item arr[n];
+	
+	printf(" Enter the max weight :");
+	scanf("%d",&max);
+	
+	for(int i=0;i<n;i++)
 	{
-		printf("%f\t",arr[i]);
-	}
-}
-void swap(float *x,float *y)
-{
-	float temp=*x;
-	*x=*y;
-	*y=temp;
-}
-void sort(float x[],float y[],float z[],float a[],float b[],int n, int flag)
-{
-	float  temp;
+		arr[i].id=i+1;
+		
+		printf(" Enter profit of item %d :",i+1);
+		scanf("%f",&arr[i].p);
+		
+		printf(" Enter weight of item %d :",i+1);
+		scanf("%f",&arr[i].w);
+		
+		arr[i].pw=arr[i].p/arr[i].w;
+		
+		arr[i].a=0;
+	} 
 	for(int i=0;i<n-1;i++)
 	{
 		for(int j=0;j<n-i-1;j++)
 		{
-			if(flag==0)    //TO SORT WEIGHT
+			if(arr[j].pw<arr[j+1].pw)
 			{
-				if(x[j]<x[j+1])
-				{
-					temp=x[j];
-					x[j]=x[j+1];
-					x[j+1]=temp;
-					swap(&y[j],&y[j+1]);
-					swap(&z[j],&z[j+1]);
-					swap(&a[j],&a[j+1]);
-					swap(&b[j],&b[j+1]);
-				}
-			}
-			if(flag==1)    //TO SORT SOLUTION TUPLE
-			{
-				if(x[j]>x[j+1])
-				{
-					temp=x[j];
-					x[j]=x[j+1];
-					x[j+1]=temp;
-					swap(&y[j],&y[j+1]);
-					swap(&z[j],&z[j+1]);
-					swap(&a[j],&a[j+1]);
-					swap(&b[j],&b[j+1]);
-				}
+				struct item temp;
+				temp=arr[j];
+				arr[j]=arr[j+1];
+				arr[j+1]=temp;
 			}
 		}
 	}
-}
-
-		
-void main()
-{
-	int n,weight,u;
-	printf(" Enter number of elements :");
-	scanf("%d",&n);
 	
-	float e[n],p[n],w[n],x[n];
-	float pw[n];
-	
-	for(int i=0;i<n;i++)
+	int u=max,k=0;
+	float profit;
+	for(k=0;k<n;k++)
 	{
-		x[i]=0;
-	}
-	
-	for(int i=0;i<n;i++)
-	{
-		e[i]=i+1;
-		printf(" Enter profit of element %d :",i+1);
-		scanf("%f",&p[i]);
-		printf(" Enter weight of element %d :",i+1);
-		scanf("%f",&w[i]);
-	}
-	printf(" Enter maximum weight :");
-	scanf("%d",&weight);
-	
-	for(int i=0;i<n;i++)
-	{
-		pw[i]=p[i]/w[i];
-	}
-	
-	sort(pw,p,w,e,x,n,0);
-	
-	u=weight;
-	int i;
-	float profit=0;
-	for( i=0;i<n;i++)
-	{
-		if(w[i]>u)
+		if(arr[k].w>u)
 		{
 			break;
 		}
-		x[i]=1;
-		u=u-w[i];
-		profit=profit+p[i];
-	}
-	if(i<=n)
-	{
-		x[i]=u/w[i];
-		profit=profit+(u/w[i])*p[i];
+		u=u-arr[k].w;
+		profit=profit+arr[k].p;
+		arr[k].a=1;
 	}
 	
-	sort(e,pw,p,w,x,n,1);
-	printf(" The solution tuple is \t");
-	display(n,x);
-	printf("\n The profit is %f",profit);	
+	if(k<=n)
+	{
+		arr[k].a=u/arr[k].w;
+		profit=profit+arr[k].p*(u/arr[k].w);
+	}
+	
+	for(int i=0;i<n-1;i++)
+	{
+		for(int j=0;j<n-i-1;j++)
+		{
+			if(arr[j].id>arr[j+1].id)
+			{
+				struct item temp;
+				temp=arr[j];
+				arr[j]=arr[j+1];
+				arr[j+1]=temp;
+			}
+		}
+	}
+	
+	printf(" The max profit is :%f",profit);
+	printf("\n The solution tuple is :");
+	for(int i=0;i<n;i++)
+	{
+		printf(" %f ",arr[i].a);
+	}
 }
