@@ -35,36 +35,15 @@ void intialize(int arr[][n])
 	}
 }
 
-void addEdge(int arr[][n], int a ,int b)
-{
-	arr[a][b]=1;
-}
-
-void adjmtrx(int arr[][n])
-{
-	printf("\n Adjacency Matrix \n");
-	for(int i=0;i<n;i++)
-	{
-		for(int j=0;j<n;j++)
-		{
-			printf("%d\t",arr[i][j]);
-		}
-		printf("\n");
-	}
-}
-
 void dfs(int i, int df[], int arr[][n])
 {
 	
 	for(int j=0;j<n;j++)
 	{
-		if(arr[i][j]==1)
+		if(arr[i][j]==1 && df[j]==0)
 		{
-			if(df[j]==0)
-			{
-				dfs(j,df,arr);
-				
-			}
+			dfs(j,df,arr);
+	
 		}
 	}
 	df[i]=1;
