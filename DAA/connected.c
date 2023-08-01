@@ -28,20 +28,15 @@ void input(int arr[][n])
 	}
 }
 
-void dfs(int i,int df[],int graph[][n])
+void dfs(int i,int df[],int arr[][n])
 {
-	int j;
+	printf(" %d ",i);
 	df[i]=1;
-	printf("%d\t",i);
-	for(j=0;j<n;j++)
+	for(int j=0;j<n;j++)
 	{
-		if(graph[i][j]==1)
+		if(arr[i][j]==1 && df[j]==0)
 		{
-			if(!df[j])
-			{
-				dfs(j,df,graph);
-			}
-			
+			dfs(j,df,arr);
 		}
 	}
 }
@@ -60,13 +55,12 @@ void main()
 	int count=1;
 	for(int i=0;i<n;i++)
 	{
-		if(!df[i])
+		if(df[i]==0)
 		{
-			printf("Connected component %d: ",count);
+			printf(" Connected component %d:",count);
 			dfs(i,df,graph);
 			count++;
 			printf("\n");
-			
 		}
 	}
 }
