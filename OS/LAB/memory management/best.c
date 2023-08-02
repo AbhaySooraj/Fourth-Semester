@@ -14,6 +14,24 @@ struct memory
 	int alloc;
 };
 
+void sort(struct memory mb[],int m)
+{
+	for(int i=0;i<m-1;i++)
+	{
+		for(int j=0;j<m-i-1;j++)
+		{
+			if(mb[j].msize>mb[j+1].msize)
+			{
+				struct memory temp;
+				temp=mb[j];
+				mb[j]=mb[j+1];
+				mb[j+1]=temp;
+			}
+		}
+	}
+}
+
+
 void main()
 {
 	int p,m;
@@ -41,7 +59,7 @@ void main()
 		mblocks[i].flag=0;
 	}
 	
-	
+	sort(mblocks,m);
 	for(int i=0;i<p;i++)
 	{
 		for(int j=0;j<m;j++)
@@ -55,7 +73,7 @@ void main()
 		}
 	}
 	
-	printf(" FIRST FIT \n");
+	printf(" BEST FIT \n");
 	printf("Block no\t\tBlock size\t\tProcess no\t\tProcess Size\n");
 	for(int i=0;i<m;i++)
 	{
