@@ -29,14 +29,14 @@ void main()
 	for(int i=0;i<p;i++)
 	{
 		pblocks[i].pid=i;
-		printf(" Enter the size of process :");
+		printf(" Enter the size of process %d:",i);
 		scanf("%d",&pblocks[i].psize);
 	}
 	
 	for(int i=0;i<m;i++)
 	{
 		mblocks[i].mid=i;
-		printf(" Enter the size of memory blocks :");
+		printf(" Enter the size of memory blocks %d:",i);
 		scanf("%d",&mblocks[i].msize);
 		mblocks[i].flag=0;
 	}
@@ -69,3 +69,6 @@ void main()
 		}
 	}
 }
+
+	
+	
